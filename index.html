@@ -1,23 +1,120 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Визитка Вячеслава</title>
+    <title>MaxView | Аналитика РПЛ и Прогнозы</title>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; text-align: center; padding: 50px; }
-        .card { background: white; max-width: 450px; margin: 0 auto; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #24292e; }
-        p { color: #586069; font-size: 18px; line-height: 1.6; }
-        .btn { display: inline-block; padding: 12px 24px; background: #2ea44f; color: white; text-decoration: none; border-radius: 6px; margin-top: 15px; font-weight: bold; }
-        .btn:hover { background: #2c974b; }
+        /* Темная тема и шрифты */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #121214; 
+            color: #e1e1e6; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        
+        /* Главный контейнер-карточка */
+        .container { 
+            background: #1a1a1e; 
+            max-width: 600px; 
+            width: 100%; 
+            margin: 20px auto; 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
+            border: 1px solid #29292e; 
+            text-align: center; 
+        }
+
+        h1 { color: #00ff87; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { color: #94949a; font-size: 16px; margin-bottom: 25px; }
+        
+        /* Стилизация таблицы результатов */
+        h2 { color: #ffffff; font-size: 20px; margin-top: 30px; margin-bottom: 15px; text-align: left; border-left: 4px solid #00ff87; padding-left: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: #202024; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #29292e; }
+        th { background-color: #29292e; color: #00ff87; font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+        .win { color: #00ff87; font-weight: bold; }
+
+        /* Кнопка Telegram */
+        .btn-tg { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 14px 28px; 
+            background: #0088cc; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            margin-top: 20px; 
+            font-weight: bold; 
+            transition: background 0.2s, transform 0.1s; 
+            box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
+        }
+        .btn-tg:hover { background: #0077b3; transform: translateY(-2px); }
+        .btn-tg:active { transform: translateY(0); }
+        
+        /* Дисклеймер как в блоге */
+        .disclaimer { color: #7c7c8a; font-size: 12px; margin-top: 30px; line-height: 1.4; border-top: 1px solid #29292e; padding-top: 15px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Привет! Я Вячеслав 👋</h1>
-        <p>Это мой первый сайт-визитка, который работает абсолютно бесплатно на хостинге GitHub Pages!</p>
-        <a href="https://github.com" class="btn">Мой GitHub профиль</a>
+
+    <div class="container">
+        <!-- Приветствие -->
+        <h1>MaxView | Аналитика РПЛ и Прогнозы ⚽</h1>
+        <p class="subtitle">Добро пожаловать! Здесь собраны актуальные результаты матчей, спортивная аналитика и футбольные обзоры от Вячеслава.</p>
+        
+        <!-- Таблица результатов матчей -->
+        <h2>Последние результаты матчей</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Турнир / Лига</th>
+                    <th>Матч</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Мир РПЛ (9-й тур)</td>
+                    <td>Спартак — Факел</td>
+                    <td class="win">1 : 0</td>
+                </tr>
+                <tr>
+                    <td>Мир РПЛ (8-й тур)</td>
+                    <td>Спартак — Ростов</td>
+                    <td class="win">3 : 0</td>
+                </tr>
+                <tr>
+                    <td>Кубок Медиалиги</td>
+                    <td>Амкал — 2Drots</td>
+                    <td class="win">3 : 1</td>
+                </tr>
+                <tr>
+                    <td>Кубок Медиалиги</td>
+                    <td>Broke Boys — Lit Energy</td>
+                    <td>поб. Lit Energy</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Ссылка / Кнопка Telegram -->
+        <a href="https://t.me" target="_blank" class="btn-tg">
+            ⚡ ПОДКЛЮЧИТЬСЯ К КИБЕР-СВЯЗИ В TELEGRAM
+        </a>
+
+        <!-- Предупреждение -->
+        <p class="disclaimer">
+            <strong>Предупреждение:</strong> Прогнозы на спорт и аналитика не гарантируют 100% выигрыш. Подходите к ставкам ответственно. Помните о рисках лудомании. Сделано для тренировки на GitHub Pages.
+        </p>
     </div>
+
 </body>
 </html>
