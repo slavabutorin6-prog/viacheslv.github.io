@@ -1,12 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MaxView | Аналитика РПЛ и Прогнозы</title>
+    <!-- Подключаем библиотеку плеера HLS для поддержки потокового видео .m3u8 -->
+    <script src="https://jsdelivr.net"></script>
     <style>
-        /* Темная тема и шрифты */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background: #121214; 
@@ -18,7 +18,6 @@
             align-items: center; 
         }
         
-        /* Главный контейнер-карточка */
         .container { 
             background: #1a1a1e; 
             max-width: 600px; 
@@ -29,12 +28,12 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
             border: 1px solid #29292e; 
             text-align: center; 
+            box-sizing: border-box;
         }
 
         h1 { color: #00ff87; margin-bottom: 10px; font-size: 28px; }
         .subtitle { color: #94949a; font-size: 16px; margin-bottom: 25px; }
         
-        /* Стилизация таблицы результатов */
         h2 { color: #ffffff; font-size: 20px; margin-top: 30px; margin-bottom: 15px; text-align: left; border-left: 4px solid #00ff87; padding-left: 10px; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: #202024; border-radius: 8px; overflow: hidden; }
         th, td { padding: 12px; text-align: center; border-bottom: 1px solid #29292e; }
@@ -42,7 +41,21 @@
         tr:last-child td { border-bottom: none; }
         .win { color: #00ff87; font-weight: bold; }
 
-        /* Кнопка Telegram */
+        /* Стили для видеоплеера */
+        .player-wrapper {
+            margin: 20px 0;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #29292e;
+            line-height: 0;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+
         .btn-tg { 
             display: inline-flex; 
             align-items: center; 
@@ -58,20 +71,16 @@
             box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
         }
         .btn-tg:hover { background: #0077b3; transform: translateY(-2px); }
-        .btn-tg:active { transform: translateY(0); }
         
-        /* Дисклеймер как в блоге */
         .disclaimer { color: #7c7c8a; font-size: 12px; margin-top: 30px; line-height: 1.4; border-top: 1px solid #29292e; padding-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Приветствие -->
         <h1>MaxView | Аналитика РПЛ и Прогнозы ⚽</h1>
         <p class="subtitle">Добро пожаловать! Здесь собраны актуальные результаты матчей, спортивная аналитика и футбольные обзоры от Вячеслава.</p>
         
-        <!-- Таблица результатов матчей -->
         <h2>Последние результаты матчей</h2>
         <table>
             <thead>
@@ -105,16 +114,35 @@
             </tbody>
         </table>
 
-        <!-- Ссылка / Кнопка Telegram -->
-        <a href="https://t.me/+1pxP1ZF1UMcxYzAy" target="_blank" class="btn-tg">
+        <!-- НОВАЯ СЕКЦИЯ: Автоматический IPTV-плеер трансляции -->
+        <h2>Прямой эфир / Тестовая трансляция</h2>
+        <div class="player-wrapper">
+            <video id="video" controls poster="https://unsplash.com"></video>
+        </div>
+
+        <a href="https://t.me" target="_blank" class="btn-tg">
             ⚡ ПОДКЛЮЧИТЬСЯ К КИБЕР-СВЯЗИ В TELEGRAM
         </a>
 
-        <!-- Предупреждение -->
         <p class="disclaimer">
-            <strong>Предупреждение:</strong> Прогнозы на спорт и аналитика не гарантируют 100% выигрыш. Подходите к ставкам ответственно. Помните о рисках лудомании. Сделано для тренировки на GitHub Pages.
+            <strong>Предупреждение:</strong> Прогнозы на спорт и аналитика не гарантируют 100% выигрыш. Подходите к ставкам ответственно. Помните о рисках лудомании. Видеоплеер работает в тестовом режиме. Сделано для тренировки на GitHub Pages.
         </p>
     </div>
+
+    <!-- Скрипт инициализации плеера потока .m3u8 -->
+    <script>
+        var video = document.getElementById('video');
+        // Ниже вставляется прямая ссылка на .m3u8 поток (в качестве примера взят стабильный открытый инфо-канал)
+        var videoSrc = 'https://adpnetworkhd-cmd.github.io/iptv/Russia24_Moskva.m3u8';
+
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+        }
+    </script>
 
 </body>
 </html>
