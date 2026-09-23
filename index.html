@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MaxView | Аналитика РПЛ и Прогнозы</title>
-    <!-- Подключаем библиотеку плеера HLS для поддержки потокового видео .m3u8 -->
-    <script src="https://jsdelivr.net"></script>
+    <!-- Подключаем продвинутый плеер Clappr для обхода блокировок потока -->
+    <script type="text/javascript" src="https://jsdelivr.net"></script>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -41,18 +41,16 @@
         tr:last-child td { border-bottom: none; }
         .win { color: #00ff87; font-weight: bold; }
 
-        /* Стили для видеоплеера */
+        /* Обертка для нового плеера */
         .player-wrapper {
             margin: 20px 0;
             background: #000;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #29292e;
-            line-height: 0;
         }
-        video {
+        #player {
             width: 100%;
-            height: auto;
             aspect-ratio: 16 / 9;
         }
 
@@ -114,10 +112,10 @@
             </tbody>
         </table>
 
-        <!-- НОВАЯ СЕКЦИЯ: Автоматический IPTV-плеер трансляции -->
-        <h2>Прямой эфир / Тестовая трансляция</h2>
+        <!-- СЕКЦИЯ ТВ: Спортивный плеер онлайн -->
+        <h2>Прямой эфир телеканала Беларусь 5 📺</h2>
         <div class="player-wrapper">
-            <video id="video" controls poster="https://unsplash.com"></video>
+            <div id="player"></div>
         </div>
 
         <a href="https://t.me" target="_blank" class="btn-tg">
@@ -125,23 +123,28 @@
         </a>
 
         <p class="disclaimer">
-            <strong>Предупреждение:</strong> Прогнозы на спорт и аналитика не гарантируют 100% выигрыш. Подходите к ставкам ответственно. Помните о рисках лудомании. Видеоплеер работает в тестовом режиме. Сделано для тренировки на GitHub Pages.
+            <strong>Предупреждение:</strong> Прогнозы на спорт и аналитика не гарантируют 100% выигрыш. Подходите к ставкам ответственно. Помните о рисках лудомании. Стриминг предоставлен в ознакомительных целях. Сделано для тренировки на GitHub Pages.
         </p>
     </div>
 
-    <!-- Скрипт инициализации плеера потока .m3u8 -->
+    <!-- Инициализация спортивного плеера -->
     <script>
-        var video = document.getElementById('video');
-        // Ниже вставляется прямая ссылка на .m3u8 поток (в качестве примера взят стабильный открытый инфо-канал)
-        var videoSrc = 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8';
-
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = videoSrc;
-        }
+        var player = new Clappr.Player({
+            source: "https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8",
+            parentId: "#player",
+            width: "100%",
+            height: "100%",
+            autoPlay: false,
+            mute: false,
+            playback: {
+                playInline: true,
+                hlsjsConfig: {
+                    xhrSetup: function(xhr, url) {
+                        xhr.withCredentials = false; // Отключаем куки для обхода CORS защиты
+                    }
+                }
+            }
+        });
     </script>
 
 </body>
